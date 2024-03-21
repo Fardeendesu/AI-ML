@@ -1,0 +1,151 @@
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, classification_report
+
+# Load the Haberman Survival dataset
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/haberman/haberman.data"
+column_names = ["age", "year_of_surgery", "positive_nodes", "survival_status"]
+haberman = pd.read_csv(url, header=None, names=column_names)
+
+X = haberman.drop("survival_status", axis=1)
+y = haberman["survival_status"]
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+
+dt_model = DecisionTreeClassifier(random_state=42)
+dt_model.fit(X_train, y_train)
+
+
+y_pred = dt_model.predict(X_test)
+
+
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2f}\n")
+
+
+print("Classification Report:")
+print(classification_report(y_test, y_pred))
+
+
+tree_rules = export_text(dt_model, feature_names=list(X.columns))
+print("Decision Tree Rules:")
+print(tree_rules)
+
+
+
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/haberman/haberman.data"
+column_names = ["age", "year_of_surgery", "positive_nodes", "survival_status"]
+haberman = pd.read_csv(url, header=None, names=column_names)
+
+# Step 2: Data Preprocessing
+X = haberman.drop("survival_status", axis=1)
+y = haberman["survival_status"]
+
+# Step 3: Train/Test Split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 4: Model Initialization
+dt_model = DecisionTreeClassifier(random_state=42)
+
+# Step 5: Model Training
+dt_model.fit(X_train, y_train)
+
+# Step 6: Make Predictions
+y_pred = dt_model.predict(X_test)
+
+# Step 7: Model Evaluation
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2f}\n")
+
+print("Classification Report:")
+print(classification_report(y_test, y_pred))
+
+# True/False assessment table
+steps = [
+    "Load the dataset",
+    "Data Preprocessing",
+    "Train/Test Split",
+    "Model Initialization",
+    "Model Training",
+    "Make Predictions",
+    "Model Evaluation",
+    "Hyperparameter Tuning (optional)",
+    "Feature Engineering (if required)",
+    "Cross-Validation (if required)",
+    "Ensemble Methods (if required)"
+]
+
+true_false = [
+    True,  # Step 1
+    True,  # Step 2
+    True,  # Step 3
+    True,  # Step 4
+    True,  # Step 5
+    True,  # Step 6
+    True,  # Step 7
+    False,  # Step 8
+    False,  # Step 9
+    False,  # Step 10
+    False   # Step 11
+]
+
+# Displaying the True/False assessment table
+print("\nTrue/False Assessment Table:")
+print("| {:<40} | {:<50} |".format("Step", "True/False"))
+print("|" + "-"*42 + "|" + "-"*52 + "|")
+for step, tf in zip(steps, true_false):
+    print("| {:<40} | {:<50} |".format(step, str(tf)))
+
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, classification_report
+
+# Load the dataset
+url = "https://archive.ics.uci.edu/ml/machine-learning-databases/haberman/haberman.data"
+column_names = ["age", "year_of_surgery", "positive_nodes", "survival_status"]
+haberman = pd.read_csv(url, header=None, names=column_names)
+
+# Data Preprocessing
+X = haberman.drop("survival_status", axis=1)
+y = haberman["survival_status"]
+
+# Train/Test Split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Model Initialization, Training, and Prediction
+dt_model = DecisionTreeClassifier(random_state=42)
+dt_model.fit(X_train, y_train)
+y_pred = dt_model.predict(X_test)
+
+# Confusion Matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
+print("Confusion Matrix:")
+print(conf_matrix)
+
+# Classification Report
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
+
+
+def calculate_support_values(dataset_url, class_column):
+    # Load the dataset
+    column_names = ["age", "year_of_surgery", "positive_nodes", "survival_status"]
+    haberman = pd.read_csv(dataset_url, header=None, names=column_names)
+
+    # Calculate support values for each class
+    support_values = haberman[class_column].value_counts()
+
+    # Display support values for each class
+    print("Support values for each class:")
+    print(support_values)
+
+# URL of the dataset
+dataset_url = "https://archive.ics.uci.edu/ml/machine-learning-databases/haberman/haberman.data"
+# Name of the column containing the class labels
+class_column = "survival_status"
+
+# Calculate and display support values
+calculate_support_values(dataset_url, class_column)
